@@ -6,7 +6,6 @@ import Spinner from 'react-native-spinkit'
 import SplashScreen from 'react-native-splash-screen'
 export default class App extends Component {
   constructor(props) {
-    SplashScreen.hide()
     super(props)
     this.state = {
       nowData: [],
@@ -21,6 +20,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    SplashScreen.hide()
     this.getAllData()
     this.getTopData()
   }
@@ -30,7 +30,7 @@ export default class App extends Component {
       return
     }
     this.isLoding = true
-    getFetchFromCache('http://localhost:8081/all.json').then(
+    getFetchFromCache('https://jokunhe.github.io/jokunSotre_josn/all.json').then(
       response => {
         this.allData = response.feed.entry
         const nowData = this.allData.slice(this.start, this.page * 20)
@@ -46,7 +46,7 @@ export default class App extends Component {
   }
 
   getTopData = () => {
-    getFetchFromCache('http://localhost:8081/top.json').then(
+    getFetchFromCache('https://jokunhe.github.io/jokunSotre_josn/top.json').then(
       response => {
         this.setState({
           topData: response.feed.entry
@@ -179,7 +179,6 @@ export default class App extends Component {
 
   render() {
     const { topData, nowData } = this.state
-    console.log(this.opacity)
     return (
       <SafeAreaView style={styles.container}>
         <TextInput
@@ -280,15 +279,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   textInput: {
-    height: 28,
+    height: 30,
     backgroundColor: '#F7F7F7',
     fontSize: 13,
+    lineHeight:15,
     marginHorizontal: 20,
     marginVertical: 15,
     borderRadius: 20,
-    paddingHorizontal: 15,
+    padding:0,
     textAlign: 'center',
-    textAlignVertical: 'top',
+    textAlignVertical: 'center',
     color: '#666666'
   },
   emptyView: {
